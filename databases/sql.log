@@ -1,0 +1,254 @@
+timestamp: 2014-08-12T17:38:52.389080
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2014-08-12T17:38:52.455378
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-08-12T17:38:52.506371
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2014-08-12T17:38:52.561638
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2014-08-12T17:38:52.616986
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2014-08-12T17:38:52.670750
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2014-09-18T21:44:01.513041
+CREATE TABLE members(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(length = 21),
+    first_name CHAR(length=21),
+    minst CHAR(length = 7),
+    address CHAR(length=35),
+    zip CHAR(length=10),
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+timestamp: 2014-09-18T21:45:42.392220
+CREATE TABLE members(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(length = 21),
+    first_name CHAR(length=21),
+    minst CHAR(length = 7),
+    address CHAR(length=35),
+    zip CHAR(length=10),
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+timestamp: 2014-09-18T21:49:42.205590
+CREATE TABLE members(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    first_name CHAR(512),
+    minst CHAR(512),
+    address CHAR(512),
+    zip CHAR(512),
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+success!
+success!
+timestamp: 2014-09-18T22:03:41.923396
+ALTER TABLE members ADD last_name CHAR(length = 21);
+timestamp: 2014-09-18T22:04:24.634661
+ALTER TABLE members ADD last_name CHAR(512);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2014-09-22T20:49:20.150881
+CREATE TABLE case_action_master(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    action_name CHAR(512),
+    action_value CHAR(512),
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+success!
+success!
+timestamp: 2014-09-22T20:50:38.655856
+CREATE TABLE case_master(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    case_number CHAR(512),
+    member_id INTEGER REFERENCES members (id) ON DELETE CASCADE,
+    description TEXT,
+    date_assigned DATE,
+    date_closed DATE,
+    dead_file_box_number CHAR(512),
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2014-09-22T20:50:38.710523
+CREATE TABLE case_action(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    case_id INTEGER REFERENCES case_master (id) ON DELETE CASCADE,
+    action_id INTEGER REFERENCES case_action_master (id) ON DELETE CASCADE,
+    date_performed DATE,
+    remarks TEXT,
+    is_active CHAR(1),
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    modified_on TIMESTAMP,
+    modified_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
