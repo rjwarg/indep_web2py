@@ -8,18 +8,18 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 ## - call exposes all registered services (none by default)
 #########################################################################
-
+from datetime import date
 
 def index():
-    form = SQLFORM.factory(Field('your_name', requires=IS_NOT_EMPTY()),
-                           Field('birth_date', 'date')).process()
-    if form.accepted:
-        session.flash = 'Form accepted'
-        redirect(URL('test1','other', vars={'your_name':form.vars.your_name, 'birth_date':form.vars.birth_date}))
-    elif form.errors:
-        response.flash = 'Form contains errors'
-    else:
-        response.flash = 'Form displayed for the first time'
+    rows = db(db.case_master).select()
+    return locals()
+
+def edit_case():
+    testing = "testing"
+    case_number = request.args(1)
+    if case_number == 'new':
+        case_number = new_case_number()
+    id_key = request.args(0)
     return locals()
 
 def other():
@@ -79,3 +79,12 @@ def data():
       LOAD('default','data.load',args='tables',ajax=True,user_signature=True)
     """
     return dict(form=crud())
+
+def new_case_number():
+    
+ 
+    suffix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    date_part = date.today().strftime("%Y%m%d")
+    # howmany cases start with this date?
+    count = db(db.case_master.case_number.like(date_part +'%')).count()
+    return date_part + suffix[count:count+1]
