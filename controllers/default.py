@@ -19,7 +19,21 @@ def edit_case():
     case_number = request.args(1)
     if case_number == 'new':
         case_number = new_case_number()
-    id_key = request.args(0)
+        form = SQLFORM(db.case_master)
+        form.vars.case_number = case_number
+        form.vars.member_id = 1001
+        
+    else:
+        case = db.case_master(request.args(0))
+        form = SQLFORM(db.case_master, case)
+        
+    if form.process(session=None, formname='indep').accepted:
+        response.flash = 'form accepted'
+    elif form.errors:
+        response.flash = 'form has errors'
+    else:
+        response.flash = 'please fill in the form'
+        
     return locals()
 
 def other():
